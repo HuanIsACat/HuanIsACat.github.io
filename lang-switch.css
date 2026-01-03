@@ -1,0 +1,52 @@
+/**
+ * 语言切换样式
+ * 复制这段 CSS 到你的页面的 <style> 标签中
+ */
+
+/* 语言切换逻辑 */
+.content-en { 
+    display: none; 
+}
+
+body.lang-en .content-en { 
+    display: block; 
+}
+
+body.lang-en .content-zh { 
+    display: none; 
+}
+
+/* 语言切换按钮 */
+.lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    padding: 8px 12px;
+    background: #fffef0;
+    border: 2px solid #8b7355;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.lang-switch:hover {
+    background: #f3eacb;
+    transform: scale(1.05);
+}
+
+.lang-switch:active {
+    transform: scale(0.98);
+}
+
+/* 移动设备适配 */
+@media (max-width: 768px) {
+    .lang-switch {
+        top: 15px;
+        right: 15px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}

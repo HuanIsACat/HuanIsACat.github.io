@@ -7,7 +7,9 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&family=UnifrakturMaguntia&family=ZCOOL+XiaoWei&family=Pirata+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&family=UnifrakturMaguntia&family=Pirata+One&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="lang-switch.css">
 
     <style>
         :root {
@@ -21,10 +23,16 @@
             /* 字体变量 */
             --font-title-fancy: 'UnifrakturMaguntia', cursive; 
             --font-body-en: 'Jim Nightshade', cursive; 
-            --font-body-zh: 'ZCOOL XiaoWei', serif;
+            --font-body-zh: 'ZhanKuXiaowei', serif;
             --font-stats: 'Pirata One', cursive;
         }
-
+@font-face {
+        font-family: 'ZhanKuXiaowei';
+        src: url('fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap; /* 确保字体加载时不会出现白屏 */
+    }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -36,24 +44,7 @@
             color: var(--ink-color);
         }
 
-        /* 语言切换逻辑 */
-        .content-en { display: none; }
-        body.lang-en .content-en { display: block; }
-        body.lang-en .content-zh { display: none; }
-
-        /* 语言切换按钮 */
-        .lang-switch {
-            position: fixed;
-            top: 20px; right: 20px; z-index: 10001;
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            cursor: pointer;
-            font-family: var(--font-body-zh);
-            font-weight: bold;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            font-size: 0.9rem;
-        }
+        /* 语言切换样式已移至 lang-switch.css */
 
         /* 地图视口 */
         .map-viewport {
@@ -284,7 +275,7 @@
     .stats-row { gap: 10px; }
     .stat-item span { font-size: 1.8rem; }
     .link-list a { padding: 10px 0; }
-    .lang-switch { top: 15px; right: 15px; padding: 6px 10px; }
+    /* 移动设备语言开关已在 lang-switch.css 中处理 */
 }
     </style>
 </head>
@@ -300,7 +291,6 @@
 <div class="map-viewport" id="mapContainer">
     <div class="map-layer" id="mapLayer">
         </div>
-</div>
-    <script src="adventure-map.js"></script>
+</div>    <script src="lang-switch.js"></script>    <script src="adventure-map.js"></script>
 </body>
 </html>
