@@ -6,7 +6,7 @@ const adventureData = [
         id: 'profile',
         x: '60%', y: '35%',
         type: 'image',
-        iconSrc: 'mage.png', 
+        iconSrc: 'images/main/warrior.png', 
         title: { zh: '冒险者档案', en: 'Adventurer Profile' },
         subtitle: { zh: 'Huan the Nerd (Lv 10)', en: 'Human the Nerd (Lv 10)' },
         desc: {
@@ -26,24 +26,24 @@ const adventureData = [
     {
         id: 'scrolls',
         x: '20%', y: '30%',
-        type: 'svg',
-        iconShape: 'scrollIcon', 
+        type: 'image',
+        iconSrc: 'images/main/scroll.png', 
         title: { zh: '卷轴', en: 'Scrolls' },
         desc: {
             zh: '这里存放着关于技术与哲学的思考记录。',
             en: 'Records of thoughts on technology and philosophy.'
         },
         links: [
-            { url: '#', zh: '✦ 梦帐', en: '✦ Dreams' },
-            { url: '#', zh: '✦ 跑团战报', en: '✦ D&D Adventure Logs' },
+            { url: 'dream-journals.html', zh: '✦ 梦帐', en: '✦ Dreams' },
+            { url: 'campaign-logs.html', zh: '✦ 跑团战报', en: '✦ D&D Adventure Logs' },
             { url: '#', zh: '✦ AI辅助翻译作品', en: '✦ AI-enhanced Translations' }
         ]
     },
     {
         id: 'crystal',
         x: '70%', y: '70%',
-        type: 'svg',
-        iconShape: 'crystalIcon',
+        type: 'image',
+        iconSrc: 'images/main/crystal.png',
         title: { zh: '记忆碎片', en: 'Crystal Visions' },
         desc: {
             zh: '透过水晶球，你可以看到过去的影像。',
