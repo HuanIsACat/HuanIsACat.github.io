@@ -4,7 +4,7 @@
 const adventureData = [
     {
         id: 'profile',
-        x: '60%', y: '35%',
+        x: '45%', y: '50%',
         type: 'image',
         iconSrc: 'images/main/warrior.png', 
         title: { zh: '冒险者档案', en: 'Adventurer Profile' },
@@ -25,7 +25,7 @@ const adventureData = [
     },
     {
         id: 'scrolls',
-        x: '20%', y: '30%',
+        x: '90%', y: '40%',
         type: 'image',
         iconSrc: 'images/main/scroll.png', 
         title: { zh: '卷轴', en: 'Scrolls' },
@@ -41,7 +41,7 @@ const adventureData = [
     },
     {
         id: 'crystal',
-        x: '70%', y: '70%',
+        x: '30%', y: '38%',
         type: 'image',
         iconSrc: 'images/main/crystal.png',
         title: { zh: '记忆碎片', en: 'Crystal Visions' },
@@ -62,8 +62,11 @@ const adventureData = [
 // 2. 核心渲染逻辑
 // ==========================================
 function renderMarkers() {
-    const layer = document.getElementById('mapLayer');
-    layer.innerHTML = ''; 
+    // 修改这里：目标变为 markersWrapper
+    const layer = document.getElementById('markersWrapper'); 
+    if (!layer) return;
+    
+    layer.innerHTML = '';
 
     adventureData.forEach(item => {
         const marker = document.createElement('div');

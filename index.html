@@ -57,16 +57,31 @@
         }
 
         /* 背景地图层 */
-        .map-layer {
-    background-repeat: no-repeat;
+/* 背景地图层：不再设固定高度，由图片撑开 */
+.map-layer {
     position: relative;
-    display: block;
-    background-image: url(https://i.redd.it/36tc6drz7gu51.jpg);
-    background-size: cover;
-    /* background-position: center; */
+    display: inline-block; /* 核心：让容器宽度等于图片宽度 */
+    width: 100%;           /* 宽度铺满 */
     filter: sepia(0.3) contrast(1.1);
-    /* min-width: 1600px; */
-    min-height: 1200px;        }
+}
+
+/* 新增：底层图片的样式 */
+.map-bg {
+    display: block;
+    width: 100%;           /* 宽度铺满容器 */
+    height: auto;          /* 高度自动：这是免去计算比例的关键 */
+    pointer-events: none;  /* 防止图片被意外拖动或右键影响操作 */
+}
+
+/* 新增：标记点包装层，覆盖在图片正上方 */
+#markersWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 
         /* 全屏暗角遮罩 */
         .vignette-overlay {
@@ -80,7 +95,7 @@
         /* ------ 图标标记 (Marker) ------ */
         .marker {
             position: absolute;
-            width: 90px; height: 90px;
+            width: 10vw; height: 10vw;
             z-index: 10;
             transform: translate(-50%, -50%);
             cursor: pointer;
@@ -290,7 +305,11 @@
 
 <div class="map-viewport" id="mapContainer">
     <div class="map-layer" id="mapLayer">
-        </div>
-</div>    <script src="lang-switch.js"></script>    <script src="adventure-map.js"></script>
+        <img src="images/main/adventure-map-HD.png" class="map-bg" id="bgImage">
+        
+        <div id="markersWrapper"></div>
+    </div>
+</div>
+  <script src="lang-switch.js"></script>    <script src="adventure-map.js"></script>
 </body>
 </html>
