@@ -23,275 +23,147 @@
             /* 字体变量 */
             --font-title-fancy: 'UnifrakturMaguntia', cursive; 
             --font-body-en: 'Jim Nightshade', cursive; 
-            --font-body-zh: 'ZhanKuXiaowei', serif;
+            --font-body-zh: 'ZhanKuXiaoWei', serif;
             --font-stats: 'Pirata One', cursive;
         }
-@font-face {
-        font-family: 'ZhanKuXiaowei';
-        src: url('fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap; /* 确保字体加载时不会出现白屏 */
-    }
+
+        @font-face {
+            font-family: 'ZhanKuXiaoWei';
+            src: url('fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: #1a1a1a;
-            height: 100vh;
-            width: 100vw;
+            height: 100vh; width: 100vw;
             overflow: hidden;
             font-family: var(--font-body-en);
             color: var(--ink-color);
         }
 
-        /* 语言切换样式已移至 lang-switch.css */
+        /* 地图容器 */
+        .map-viewport { position: relative; width: 100%; height: 100%; overflow: auto; background: #d4c5a3; cursor: grab; }
+        .map-layer { position: relative; display: inline-block; width: 100%; filter: sepia(0.3) contrast(1.1); }
+        .map-bg { display: block; width: 100%; height: auto; pointer-events: none; }
+        #markersWrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* 地图视口 */
-        .map-viewport {
-            position: relative;
-            width: 100%; height: 100%;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
-            cursor: grab;
-            background: #d4c5a3;
-        }
-
-        /* 背景地图层 */
-/* 背景地图层：不再设固定高度，由图片撑开 */
-.map-layer {
-    position: relative;
-    display: inline-block; /* 核心：让容器宽度等于图片宽度 */
-    width: 100%;           /* 宽度铺满 */
-    filter: sepia(0.3) contrast(1.1);
-}
-
-/* 新增：底层图片的样式 */
-.map-bg {
-    display: block;
-    width: 100%;           /* 宽度铺满容器 */
-    height: auto;          /* 高度自动：这是免去计算比例的关键 */
-    pointer-events: none;  /* 防止图片被意外拖动或右键影响操作 */
-}
-
-/* 新增：标记点包装层，覆盖在图片正上方 */
-#markersWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
-        /* 全屏暗角遮罩 */
+        /* 暗角遮罩 */
         .vignette-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none; z-index: 5;
             background: radial-gradient(circle at center, transparent 60%, rgba(43, 32, 24, 0.4) 100%);
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
         }
 
         /* ------ 图标标记 (Marker) ------ */
         .marker {
             position: absolute;
-            width: 10vw; height: 10vw;
+            width: 100px; height: 100px;
             z-index: 10;
             transform: translate(-50%, -50%);
             cursor: pointer;
-            animation: float 3s ease-in-out infinite;
+            transition: z-index 0.3s;
         }
-        .marker:hover { filter: drop-shadow(0 0 8px rgba(255, 250, 240, 0.6)); }
-        .marker:hover,
-.marker.active {
-    z-index: 9999 !important; /* 让当前操作的这个图标，凌驾于所有其他图标之上 */
+
+        /* 针对“冒险者档案”图标的特殊大小 */
+#marker-profile {
+    width: 160px;  
+    height: 160px;
 }
 
-        @keyframes float {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-5px); }
+/* 如果你觉得 175px 的图标在手机上太大了，可以在 media query 里调小 */
+@media (max-width: 768px) {
+    #marker-profile {
+        width: 100px; 
+        height: 100px;
+    }
+}
+
+        .marker-img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.6));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .marker-icon {
-            width: 100%; height: 100%;
-            fill: var(--ink-color);
-            stroke: var(--bg-card); 
-            stroke-width: 1.5;
-            transition: transform 0.2s;
+        /* Hover 高亮动效：图标放大并产生金色光晕 */
+        .marker:hover .marker-img, .marker.active .marker-img {
+            transform: scale(1.2) rotate(-5deg);
+            filter: drop-shadow(0 0 15px rgba(255, 230, 150, 0.9));
+            z-index: 999;
         }
-        @media (min-width: 769px) {
-            .marker:hover .marker-icon { transform: scale(1.1); }
-        }
-        .marker-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* 保持图片比例 */
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
-            transition: transform 0.2s;
-        }
-        .marker:hover .marker-img { transform: scale(1.1) rotate(-5deg); }
 
         /* ------ 卡片弹窗 (Card Popup) ------ */
+        
+        /* 【修改点 1：普通卡片大小调节 - 电脑端】 */
         .card-popup {
-            position: absolute;
-            z-index: 100;
-            background-color: var(--bg-card);
+            position: absolute; z-index: 100; background-color: var(--bg-card);
+            border: 3px double var(--border-color); outline: 1px solid var(--border-color); outline-offset: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); pointer-events: none;
+            bottom: 110%; left: 50%; transform: translate(-50%, 10px);
             
-            /* 华丽边框设计 */
-            border: 3px double var(--border-color);
-            outline: 1px solid var(--border-color);
-            outline-offset: 4px;
-            
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            
-            opacity: 0; visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            pointer-events: none;
-            position: fixed; /* 关键点 1 */
-            left: 0;         /* 关键点 2 */
-            right: 0;        /* 关键点 3 */
-            width: 100vw;    /* 关键点 4 */
+            width: 320px;   /* <--- 在这里调整普通卡片的宽度 */
+            padding: 20px;
         }
 
-        /* 装饰性角标 */
-        .card-popup::before, .card-popup::after {
-            position: absolute;
-            font-family: serif; font-size: 24px;
-            color: var(--border-color); line-height: 1;
+        /* 【修改点 2：冒险者档案大卡片大小调节 - 电脑端】 */
+        .card-large {
+            width: 460px !important;  /* <--- 在这里调整冒险者档案的宽度 */
+            padding: 30px 25px !important;
         }
-        .card-popup::before { content: "✥"; top: 3px; left: 3px; }
-        .card-popup::after { content: "✥"; bottom: 3px; right: 3px; }
 
-        /* 电脑端卡片样式 */
-       /* 💻 电脑端适配 (Desktop) */
-@media (min-width: 769px) {
-    .card-popup {
-        bottom: 80px; 
-        left: 50%;
-        transform: translateX(-50%);
-        width: 350px;
-        padding: 25px 20px;
-    }
-    
-    .marker:hover .card-popup {
-        opacity: 1; 
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateX(-50%) translateY(-10px);
-    }
-}
-        /* ------ 内容排版 ------ */
-        .card-title {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 5px;
-            border-bottom: 1px solid var(--ink-light);
-            padding-bottom: 10px;
-            color: var(--accent-red);
+        .card-popup::before, .card-popup::after { position: absolute; content: "✥"; font-family: serif; font-size: 20px; color: var(--border-color); }
+        .card-popup::before { top: 3px; left: 3px; }
+        .card-popup::after { bottom: 3px; right: 3px; }
+
+        /* 显示逻辑 */
+        .marker:hover .card-popup, .marker.active .card-popup {
+            opacity: 1; visibility: visible;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
         }
-        .card-title.content-zh { font-family: var(--font-body-zh); font-weight: bold; }
-        .card-title.content-en { font-family: var(--font-title-fancy); letter-spacing: 1px; }
 
-        .card-subtitle {
-            font-size: 1.2rem; text-align: center;
-            color: var(--ink-light); margin-bottom: 15px;
+        /* 【修改点 3：全卡片中文字体强制替换】 */
+        .card-popup .content-zh { 
+            font-family: var(--font-body-zh) !important; 
         }
-        .card-subtitle.content-zh { font-family: var(--font-body-zh); }
-        .card-subtitle.content-en { font-family: var(--font-body-en); font-style: normal; font-size: 1.4rem; }
 
-        .card-content { font-size: 1.15rem; line-height: 1.5; }
-        .card-content .content-zh { font-family: var(--font-body-zh); }
-        /* 英文正文使用 Jim Nightshade，稍微加大字号以保证易读性 */
-        .card-content .content-en { font-family: var(--font-body-en); font-size: 1.4rem; }
+        /* 内容排版 */
+        .card-title { font-size: 1.8rem; text-align: center; color: var(--accent-red); border-bottom: 1px solid var(--ink-light); margin-bottom: 10px; }
+        .card-title.content-en { font-family: var(--font-title-fancy); }
 
-        .stats-row { display: flex; justify-content: space-around; margin: 15px 0; border-top: 1px dashed var(--ink-light); border-bottom: 1px dashed var(--ink-light); padding: 10px 0;}
+        .card-subtitle { text-align: center; color: var(--ink-light); margin-bottom: 15px; font-size: 1.1rem; opacity: 0.9; }
+        
+        .card-section { margin-top: 12px; border-top: 1px dotted var(--border-color); padding-top: 8px; }
+        .section-label { font-weight: bold; display: block; color: var(--accent-red); font-size: 1rem; }
+        .section-value { font-size: 0.95rem; line-height: 1.5; color: var(--ink-light); }
+
+        .stats-row { display: flex; justify-content: space-around; margin: 12px 0; border-top: 1px dashed var(--ink-light); border-bottom: 1px dashed var(--ink-light); padding: 8px 0; }
         .stat-item { text-align: center; }
-        .stat-item label { font-size: 0.9rem; display: block; font-weight: bold; font-family: var(--font-stats); letter-spacing: 1px;}
-        .stat-item span { font-size: 1.5rem; font-family: var(--font-stats); }
+        .stat-item label { font-size: 0.8rem; display: block; font-family: var(--font-stats); }
+        .stat-item span { font-size: 1.4rem; font-family: var(--font-stats); }
 
         .link-list { list-style: none; margin-top: 10px; }
-        .link-list a { text-decoration: none; color: var(--ink-color); display: flex; align-items: center; padding: 8px 0; transition: color 0.2s; border-bottom: 1px dotted rgba(0,0,0,0.1);}
-        .link-list a:hover { color: var(--accent-red); }
-        .link-list .content-zh { font-family: var(--font-body-zh); font-size: 1.1rem;}
-        .link-list .content-en { font-family: var(--font-body-en); font-size: 1.4rem; }
+        .link-list a { text-decoration: none; color: var(--ink-color); display: block; padding: 6px 0; border-bottom: 1px dotted rgba(0,0,0,0.1); transition: 0.2s; }
+        .link-list a:hover { color: var(--accent-red); padding-left: 8px; background: rgba(138, 44, 44, 0.05); }
 
-
-        /* ========================================= */
-        /* 📱 移动端深度适配 (Mobile Optimization)   */
-
-@media (max-width: 768px) {
-    
-    /* 1. 地图铺满 */
-    .map-layer {
-        min-width: 100%; min-height: 100%;
-        width: 100vw; height: 100vh;
-        background-size: cover; 
-        background-position: center;
-    }
-
-    /* 2. 图标修复：解除动画限制 */
-    .marker { 
-        width: 80px; height: 80px;
-        transform: none !important; 
-        animation: none !important; 
-        margin-left: -40px; 
-        margin-top: -40px; 
-        pointer-events: auto;
-    }
-    
-    .marker:hover { filter: none !important; }
-    .marker:hover .marker-icon { transform: none !important; }
-    .marker:hover .marker-img { transform: none !important; }
-
-    .marker:hover .card-popup { 
-        opacity: 0 !important; 
-        visibility: hidden !important; 
-    }
-
-    /* 3. 卡片样式：80% 宽度 + 居中 + 底部悬浮 */
-    .card-popup {
-        position: fixed; 
-        top: auto; 
-        bottom: 30px; /* 离底部留一点空隙，像个浮动的卡片 */
-        
-        /* 核心修改：实现 80% 宽度并居中 */
-        left: 50% !important;  /* 先定在屏幕正中间 */
-        width: 80vw !important; /* 宽度设为视口宽度的 80% */
-        margin: 0 !important;
-        
-        /* 默认隐藏状态：向下位移 120% + 水平居中修正 (-50%) */
-        transform: translate(-50%, 120%); 
-        
-        border-radius: 20px; /* 四周都变成圆角 */
-        padding: 30px 20px; 
-        
-        outline: none;
-        border-left: none; border-right: none;
-        border-top: 4px double var(--border-color);
-        border-bottom: 4px double var(--border-color); /* 底部也加回边框，因为悬空了 */
-        
-        max-height: 70vh; /* 防止太高挡住地图 */
-        overflow-y: auto;
-    }
-
-    /* 4. 激活状态 (Active) */
-    .marker.active .card-popup {
-        opacity: 1 !important; 
-        visibility: visible !important;
-        /* 激活显示：水平居中 (-50%) + 垂直归位 (0) */
-        transform: translate(-50%, 0) !important; 
-        pointer-events: auto;
-    }
-
-    /* 字体与间距适配 */
-    .card-title { font-size: 1.6rem; }
-    .card-content .content-zh { font-size: 1rem; }
-    .card-content .content-en { font-size: 1.3rem; } 
-    .stats-row { gap: 10px; }
-    .stat-item span { font-size: 1.8rem; }
-    .link-list a { padding: 10px 0; }
-    /* 移动设备语言开关已在 lang-switch.css 中处理 */
-}
+        /* ------ 移动端适配 ------ */
+        @media (max-width: 768px) {
+            .marker { width: 65px; height: 65px; }
+            .card-popup {
+                position: fixed; bottom: 30px; left: 50% !important;
+                width: 85vw !important;  /* 移动端普通卡片宽度 */
+                max-height: 70vh; transform: translate(-50%, 100%);
+                overflow-y: auto; border-radius: 15px;
+            }
+            .marker.active .card-popup { transform: translate(-50%, 0); }
+            
+            .card-large { 
+                width: 90vw !important; /* 移动端档案卡片宽度 */
+            }
+        }
     </style>
 </head>
 <body class="lang-zh">
@@ -303,13 +175,14 @@
 
     <div class="vignette-overlay"></div>
 
-<div class="map-viewport" id="mapContainer">
-    <div class="map-layer" id="mapLayer">
-        <img src="images/main/adventure-map-HD.png" class="map-bg" id="bgImage">
-        
-        <div id="markersWrapper"></div>
+    <div class="map-viewport" id="mapContainer">
+        <div class="map-layer" id="mapLayer">
+            <img src="images/main/adventure-map-HD.png" class="map-bg" id="bgImage">
+            <div id="markersWrapper"></div>
+        </div>
     </div>
-</div>
-  <script src="lang-switch.js"></script>    <script src="adventure-map.js"></script>
+
+    <script src="lang-switch.js"></script>
+    <script src="adventure-map.js"></script>
 </body>
 </html>
