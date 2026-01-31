@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>失落的庄园与赌局 · Dream Codex</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: radial-gradient(circle at top, #2e1b47, #120a1f 90%);
+      --card: rgba(45, 30, 70, 0.6); 
+      --glow: rgba(180, 120, 255, 0.3);
+      --border: rgba(200, 160, 255, 0.2);
+      --text-main: #eeeeee;
+      --text-dim: rgba(238, 238, 238, 0.7);
+      --accent: #bd93f9;
+    }
+
+    /* 基础样式继承 */
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Alice', "Yu Mincho", "SimSun", serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* 入场动画 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    header {
+      padding: 60px 5vw 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .breadcrumb {
+      font-family: 'Philosopher', sans-serif;
+      font-size: 0.9em;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .breadcrumb a:hover { opacity: 1; }
+
+    h1 {
+      font-family: 'Philosopher', sans-serif;
+      font-size: 2.8em;
+      color: var(--accent);
+      text-shadow: 0 0 15px rgba(189, 147, 249, 0.3);
+      margin: 10px 0;
+    }
+
+    .entry-meta {
+      font-size: 1em;
+      color: var(--text-dim);
+      margin-top: 15px;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 30px;
+      display: inline-block;
+      width: 100%;
+    }
+
+    /* 正文容器 */
+    main {
+      padding: 0 5vw 100px;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .dream-body {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 60px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    /* 文学感修饰：首字下沉 */
+    .dream-body p:first-of-type::first-letter {
+      float: left;
+      font-size: 3.5em;
+      line-height: 1;
+      padding-right: 12px;
+      color: var(--accent);
+      font-family: 'Philosopher', serif;
+    }
+
+    .dream-text {
+      font-size: 1.15em;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+
+    /* 章节分割线 */
+    .divider {
+      text-align: center;
+      margin: 50px 0;
+      opacity: 0.4;
+      color: var(--accent);
+      font-size: 1.5em;
+    }
+
+    /* 标注与感悟 */
+    .reflection {
+      font-style: italic;
+      border-left: 2px solid var(--accent);
+      padding-left: 25px;
+      margin: 40px 0;
+      color: var(--text-dim);
+      font-size: 1.05em;
+    }
+
+    /* 标签区域 */
+    .tags {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 15px;
+      background: rgba(189, 147, 249, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.85em;
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    /* 底部导航 */
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Philosopher', sans-serif;
+      color: var(--accent);
+      font-size: 0.95em;
+      padding: 10px 25px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: rgba(60, 40, 90, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(189, 147, 249, 0.2);
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--glow);
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 5vw;
+      opacity: 0.4;
+      font-size: 0.85em;
+      letter-spacing: 1px;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 600px) {
+      .dream-body { padding: 30px 20px; }
+      h1 { font-size: 2em; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="index.html">DREAM CODEX</a> / ENTRY
+  </div>
+  <h1>先知</h1>
+  <div class="entry-meta">
+    🗓 2025.01.05 &nbsp; | &nbsp; 🎭 旁观
+  </div>
+</header>
+
+<main>
+  <article class="dream-body">
+    <div class="dream-text">
+      我叫做苏泷，是本市一个不良少年团伙的主要头目之一。
+    </div>
+
+    <div class="dream-text">
+        这个帮派是我和另外三个高中的朋友一起组建起来的，其中苏曼是里面最为老成持重的，
+        也是帮派里的一把手。另外两个帮派头目分别是脾气暴谏的王虎，还有小太妹杜拉拉。
+    </div>
+   
+    <div class="dream-text">
+        要自称帮派头目，其实我还有些惭愧。
+        因为我对本帮派的贡献并没有多大，我只是因为跟苏曼走得比较近，
+        大家做什么我就跟着做什么罢了。我们这四个人里面真要说，
+        可能只有王虎和杜拉拉最符合大众对不良少年的认知。
+    </div>
+
+    <div class="dream-text">
+        我原本就不太爱参与帮派里的活动和事务，算是个边缘人物。
+        再加上现在已经开始读大学了，在这个团队里的存在感就更低了。
+        我之所以还能服众，是因为我有一项特殊能力：
+    </div>
+    
+    <div class="dream-text">
+        我偶尔能听见旁白的声音。
+    </div>
+    
+    <div class="dream-text">
+        不过我只能听见当下那一刻的旁白，而且还是跟周围的事情同时展开的，
+所以最多也就能大概知道应该做些什么。但是帮派里的后辈们都说我能听见神的声音，叫我先知。
+    </div>
+
+  <div class="divider">✧ ✧ ✧</div>  
+
+    <div class="dream-text">
+        王虎和杜拉拉确实学习成绩不太好，但是没想到意外地都擦着底线考进了本市的两所二本大学。
+        反倒是苏曼，一向稳重的他没有再接着念书了，毕业后就去了一所半工半读的技校。
+    </div>
+
+    <div class="dream-text">
+        经过一两年的发展，帮派发展得如火如荼，招收进了不少新人小弟，
+        甚至隐隐有要从一个小型的不良少年团伙发展为本地正规黑帮势力的势头。
+        但是突然因为某种原因，苏曼提出要跟我们三个分家，各自带着一批人成立新的帮派，彼此成为竞争者。
+    </div>
+
+    <div class="dream-text">
+        王虎和杜拉拉都非常不解，但苏曼心意已决。
+        我虽然并不在意帮派的未来，但我不想跟苏曼之间产生这么大的隔阂，彼此竞争。
+    </div>
+
+    <div class="dream-text">
+        大家争执不下，于是苏曼提出：
+        如果我们能完成他针对我们三人提出的试炼，他就愿意继侯领导众人前行，
+        否则分家没得说。说完他就留下了一纸分权协议离开了。
+    </div>
+
+ <div class="divider">✧ ✧ ✧</div>  
+
+    <div class="dream-text">
+        苏曼留给我的试炼要求我进入一处厂房的蓝色小门后面。
+    </div>
+    
+ <div class="dream-text">
+        现在天色已晚，家家户户都亮起了灯。
+        厂房己经没有在继续生产了，只有蓝色小门的顶上还亮着一盏灯光。
+        周围的露天停车场都黑洞洞的，只有更远处的路灯稀稀拉拉地照亮了安静的公路。
+    </div> 
+    
+    <div class="dream-text">
+       我独自来到了厂房的停车场，静静地点着一支烟，观察着周
+围的环境。这里除了特别安静以外，并没有什么特别的地方。
+    </div> 
+    
+    <div class="dream-text">
+        很快烟就抽完了。我踩灭了烟头，准备去一探究竟。
+        突然我感到一阵恍惚，等我再回过神来的时候，我已经来到了一间非常窄小的厨房里。
+上下橱柜的颜色都然我刚才看到的蓝色小门似乎是一个材质的。里面还有个小男孩，正一脸惊恐地
+端着一份做到一半的菜，不知所指地看着突然出现的我。
+    </div> 
+    
+    <div class="dream-text">
+        『小男孩来自一个当地家庭，跟父亲和祖父一起居住，爸爸是个科学家。
+        这家人正在为周末的旅行做准备。
+        父亲平时很忙，所以这次难得的休假旅行已经成为了这家人值得庆祝的一件大事。』我听到旁白响起。
+    </div> 
+    
+    <div class="dream-text">
+        于是我蹲下来安慰小朋友，说我知道你一直是个懂事的孩子，我是来帮你的。
+        我是你爸爸的朋友，现在爸爸还暂时回不来，我是替他过来帮忙准备旅行的。
+    </div> 
+    
+    <div class="dream-text">
+        小男孩半信半疑的，问我怎么突然出现在厨房里的。
+    </div> 
+    
+    <div class="dream-text">
+        我说我会一点小小的魔法，这也是你爸爸为什么会叫我来帮
+忙的原因，有魔法毕竟可以做得更快嘛。小男孩好像很开心地接受了这个设定。
+    </div> 
+    
+    <div class="dream-text">
+        我开始帮小男孩洗菜切菜，忙了没多久，一个精瘦的老人
+进来了。
+    </div>
+    
+    <div class="dream-text">
+        我又听见旁白说：『这时小男孩的爷爷进来了，狭小的厨房
+显得更拥挤了。看到厨房里有个陌生男人，他显得有些吃惊。』
+    </div>
+    
+    <div class="dream-text">
+    在我还没来得及想出什么话来圆场时候，小男孩先替我解了围。
+    他开心地拉老人的衣角说：“爷爷爷爷，这是爸爸的朋友，来帮我们准备旅行的。他还会魔法！”</div>
+
+    <div class="dream-text">
+    老人狐疑地看着我。我笑着打哈哈说，是的，我会那么一点点“魔法” ，我甚至加上了一个打引号的手势。
+    虽然我知道在成年人看来这里的魔法可能会有另一种意义，但这也就不算我说谎了吧？</div>
+
+    <div class="dream-text">
+    老人点点头，我们接着在厨房忙碌起来。这个小厨房几乎已经
+站不下人了。</div>
+
+<div class="dream-text">
+等到事情忙完了，爷爷说为了表示感谢，他决定把孩子爸爸
+发明的一只多用笔送给我，然后还给我演示了一下用法：不需要
+按任何按键，这支笔会随机出一种笔刷效果。有时候是正常
+的黑色签字，有时候是些五颜六色的彩色荧光方格。</div>
+
+<div class="dream-text">
+我觉得很有意思，也就收下了。</div>
+
+<div class="dream-text">
+等我走出去厨房，发现门外有一帮黑帮的人正远远地站在停
+车场里，一言不发地盯着这家人的门口。</div>
+
+<div class="dream-text">
+我看到了王虎，朝他走过去。</div>
+
+<div class="dream-text">
+他跟我打了声招呼，然后勾肩搭背地拉着我向停车场里停着
+的一辆车走去。</div>
+
+<div class="dream-text">
+他说杜拉拉也过来了，她也不知道该怎么处理苏曼的这件事
+，正等着先知给点意见呢。</div>
+
+<div class="dream-text">
+老实说，我虽然确实走进了那扇门，但是我不清楚苏曼此举
+的意义何在。我也不知道我算不算通过了他的试炼。</div>
+
+<div class="dream-text">
+我把他的手给掀了下去，说虽然我也不想分家，但是我尊重
+苏曼的意见，苏曼肯定自有他的想法。</div>
+
+<div class="dream-text">
+说话间，我们已经走到了。杜拉拉还是她往常的太妹打扮，
+嘴巴里嚼着泡泡糖，曲着一条腿坐在一辆不知道谁的车的引擎盖上面，旁边放着那份协议。</div>
+
+<div class="dream-text">
+我走过去，掏出刚才老人给我的多用笔，沉默地签了字。这次随机出来的竟然是七彩渐变棋盘块。</div>
+
+<div class="dream-text">
+杜拉拉在旁边问，就这么签啦？</div>
+
+<div class="dream-text">
+我应了一声嗯。然后把笔留给了她，转身离开。</div>
+
+<div class="dream-text">
+王虎在一旁啐了一口，说：“真晦气，没想到就这样结束了。反
+正我是不会签的。”然后便朝看还围在小男孩家厨房外面的
+人群走去。</div>
+
+<div class="dream-text">
+杜拉拉看了一眼我的签字，很快就发现了这支笔的有趣之处
+。她追问我：“这是什么笔？这么有意思。”</div>
+
+<div class="dream-text">
+我没回头，也没停下脚步，答了一句，是支多功能笔。</div>
+
+<div class="dream-text">
+就在这时，旁白又响了起来：</div>
+
+<div class="dream-text">
+『杜拉拉签了字以后饶有兴趣地把玩起了这支笔。』</div>
+
+<div class="dream-text">
+“多功能笔？真有意思。”</div>
+
+<div class="dream-text">
+『但她没想到的是，这支笔……』</div>
+
+<div class="dream-text">
+“不如给我们指一条出路看看。”</div>
+
+<div class="dream-text">
+『真的指向了众人的转机。』</div>
+
+<div class="dream-text">
+听到这里，我惊讶地停住脚步回过头。只见杜拉拉也一脸懵
+逼地看着手里的多功能笔。而这支电从笔尖处发射出了一道
+红色的光线，直指之前那家人的厨房。</div>
+
+<div class="dream-text">
+“什么……”王虎显然也听到了杜拉拉说的最后几句话，他
+也停下了脚步，回过头来吃惊地看着这道红光。</div>
+
+<div class="dream-text">
+我知道，发射红色激光这个功能，绝对不在刚才老人给我展示
+的功能之中。</div>
+
+<div class="dream-text">
+这也许真的是神迹。</div>
+
+<div class="dream-text">
+现在众人的目光都聚拿在了那家人的厨房上。</div>
+ 
+    <div class="reflection">
+      编后：这个梦真的到这里就结束了，我也不知道后续发生了什么。
+    </div>
+
+    <div class="tags">
+      <span class="tag"># 少年漫画</span>
+      <span class="tag"># 黑帮</span>
+      <span class="tag"># 逻辑流畅</span>
+      <span class="tag"># 待续？</span>
+    </div>
+  </article>
+
+  <div class="nav-footer">
+    <a href="index.html" class="back-btn">← 返回幻象集 (Return)</a>
+    <span style="opacity: 0.3; font-size: 0.8em;">#编号: DV-2025-0105</span>
+  </div>
+</main>
+
+<footer>
+  - From another timeline -
+</footer>
+
+</body>
+</html>

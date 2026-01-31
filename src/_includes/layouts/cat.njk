@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+SC:wght@300;500&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'ZhanKuXiaowei';
+            /* 请确保路径指向你之前的字体文件 */
+            src: url('/fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+
+        :root {
+            --bg-sky: #f0f9ff;         /* 天蓝色底色 */
+            --bg-marble: #ffffff;      /* 纯白大理石感 */
+            --gold-leaf: #d4af37;      /* 经典白金 */
+            --celestial-blue: #0ea5e9; /* 星辰蓝 */
+            --text-main: #334155;      /* 深灰蓝墨水 */
+            --font-zh: 'ZhanKuXiaowei', 'Noto Serif SC', serif;
+            --font-display: 'Cinzel', serif;
+        }
+
+        body {
+            background-color: var(--bg-sky);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+                url('https://www.transparenttextures.com/patterns/white-diamond.png'); /* 极淡的菱形纹理 */
+            margin: 0;
+            padding: 40px 20px;
+            font-family: var(--font-zh);
+            color: var(--text-main);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* 浮动的大理石容器 */
+        .sanctuary-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--bg-marble);
+            padding: 60px 80px;
+            position: relative;
+            box-shadow: 
+                0 20px 50px rgba(14, 165, 233, 0.1),
+                0 0 0 1px rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+        }
+
+        /* 顶部装饰：白金线条 */
+        .sanctuary-container::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid var(--gold-leaf);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        /* 囧囧的独特Icon：一个简化的猫头剪影或星星 */
+        .header-icon {
+            font-size: 2rem;
+            color: var(--gold-leaf);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--gold-leaf);
+            margin: 0;
+            letter-spacing: 4px;
+            font-weight: normal;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--celestial-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+        
+        .cat-content {
+            font-size: 1.15rem;
+            text-align: justify;
+        }
+        
+        .cat-content p {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            font-family: ZhanKuXiaowei (font-display);
+            color: var(--gold-leaf);
+            border: 1px solid var(--gold-leaf);
+            padding: 10px 30px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: transparent;
+        }
+
+        .back-btn:hover {
+            background: var(--gold-leaf);
+            color: #fff;
+        }
+
+        /* 装饰元素：角落的金色星辰 */
+        .star-decor {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--gold-leaf);
+            opacity: 0.4;
+        }
+        .top-left { top: 20px; left: 20px; }
+        .bottom-right { bottom: 20px; right: 20px; }
+
+        @media (max-width: 600px) {
+            .sanctuary-container { padding: 40px 20px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="sanctuary-container">
+        <span class="star-decor top-left">✦</span>
+        <span class="star-decor bottom-right">✦</span>
+
+        <header>
+            <span class="header-icon">✧</span>
+            <h1>{{ title }}</h1>
+            <div class="subtitle">{{ subtitle }}</div>
+        </header>
+
+        <div class="cat-content">
+            {{ content | safe }}
+        </div>
+
+        <footer>
+            <a href="index.html" class="back-btn">返回列表</a>
+        </footer>
+    </main>
+
+</body>
+</html>
