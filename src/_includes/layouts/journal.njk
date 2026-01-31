@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-web/style.css" media="print" onload="this.media='all'">
     
-    <link rel="stylesheet" href="/lang-switch.css">
+    <link rel="stylesheet" href="{{ '/lang-switch.css' | url }}">
 
     <style>
 
 @font-face {
         font-family: 'ZhanKuXiaowei';
         /* 确保路径正确：fonts 文件夹在根目录下 */
-        src: url('/fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
+        src: url("{{ '/fonts/ZCOOLXiaoWei-Regular.otf' | url }}") format('opentype');
         font-weight: normal;
         font-style: normal;
         font-display: swap; /* 确保字体加载时不会出现白屏 */
@@ -152,7 +152,7 @@
 
         {{ content | safe }}
 
-        <a href="index.html" class="back-btn">← 返回 Return</a>
+        <a href="{{ '/index.html' | url }}" class="back-btn">← 返回 Return</a>
     </article>
 
     <div class="lang-switch" onclick="switchLanguage()">
@@ -160,6 +160,6 @@
         <span class="content-en"> 中文 </span>
     </div>
 
-    <script src="/lang-switch.js"></script>
+    <script src="{{ '/lang-switch.js' | url }}"></script>
 </body>
 </html>
