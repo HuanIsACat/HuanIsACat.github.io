@@ -32,6 +32,10 @@
       overflow-x: hidden;
     }
 
+    p {
+      margin-bottom: 25px;
+    }
+    
     /* 入场动画 */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
@@ -97,23 +101,6 @@
       padding: 60px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
       position: relative;
-    }
-
-    /* 文学感修饰：首字下沉 */
-    .dream-body p:first-of-type::first-letter {
-      float: left;
-      font-size: 3.5em;
-      line-height: 1;
-      padding-right: 12px;
-      color: var(--accent);
-      font-family: 'Philosopher', serif;
-    }
-
-    .dream-text {
-      font-size: 1.15em;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 30px;
-      text-align: justify;
     }
 
     /* 章节分割线 */
@@ -199,11 +186,11 @@
 
 <header>
   <div class="breadcrumb">
-    <a href="{{ '/index.html' | url }}">DREAM CODEX</a> / ENTRY
+    <a href="{{ 'index.html' | url }}">DREAM CODEX</a> / ENTRY
   </div>
   <h1>{{ title }}</h1>
   <div class="entry-meta">
-    🗓 {{ date }} &nbsp; | &nbsp; 🎭 {{ emotion }}
+    🗓 {{ date | postDate }} &nbsp; | &nbsp; 🎭 {{ emotion }}
   </div>
 </header>
 
@@ -219,7 +206,7 @@
   </article>
 
   <div class="nav-footer">
-    <a href="{{ '/index.html' | url }}" class="back-btn">← 返回幻象集 (Return)</a>
+    <a href="{{ 'index.html' | url }}" class="back-btn">← 返回幻象集 (Return)</a>
     <span style="opacity: 0.3; font-size: 0.8em;">#编号: {{ id }}</span>
   </div>
 </main>

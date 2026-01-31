@@ -148,11 +148,11 @@
 
     <article class="letter-container">
         <h1>{{ title }}</h1>
-        <p class="date">{{ date }}</p>
+        <p class="date">{{ date | postDate }}</p>
 
         {{ content | safe }}
 
-        <a href="{{ '/index.html' | url }}" class="back-btn">← 返回 Return</a>
+        <a href="{{ 'index.html' | url }}" class="back-btn">← 返回 Return</a>
     </article>
 
     <div class="lang-switch" onclick="switchLanguage()">
