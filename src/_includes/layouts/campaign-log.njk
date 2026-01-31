@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Noto+Serif+SC:wght@600&family=MedievalSharp&display=swap" rel="stylesheet">
-    <title>坠入阿弗纳斯 - 战报</title>
+    <title>{{ metaTitle or title }} - 战报</title>
     <style>
         @font-face {
             font-family: 'ZCOOLXiaoWei';
-            src: url('fonts/ZCOOLXiaoWei-Regular.otf') format('opentype');
+            src: url("{{ '/fonts/ZCOOLXiaoWei-Regular.otf' | url }}") format('opentype');
             font-display: swap;
         }
 
@@ -137,7 +137,7 @@
         .bubble::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -10px; border: 10px solid; border-color: white transparent transparent transparent; }
         .active .bubble { display: block; animation: fadeInUp 0.3s ease; }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -146,54 +146,27 @@
     <div class="toc-trigger" onclick="toggleTOC()">⚜</div>
     <h2>章节索引</h2>
     <ul class="toc-list">
-        <li><a href="#chap1" onclick="toggleTOC()">壹 · 艾尔托瑞尔的余烬</a></li>
-        <li><a href="#chap2" onclick="toggleTOC()" class="sub-link"> - 寻找铁匠威鲁姆</a></li>
-        <li><a href="#chap3" onclick="toggleTOC()" class="sub-link"> - 盲目的仁慈</a></li>
-        <li><a href="#chap-final" onclick="toggleTOC()">贰 · 月光小鹿的浓烟</a></li>
+        {% for anchor in anchors %}
+        <li><a href="#{{ anchor.id }}" onclick="toggleTOC()" class="{{ 'sub-link' if anchor.sub else '' }}">{{ anchor.text }}</a></li>
+        {% endfor %}
         <hr style="border: none; border-top: 1px dotted var(--accent-gold); margin: 20px 0;">
-        <li><a href="index.html" style="font-size: 0.8em; opacity: 0.7;">⬅ 返回炉火轶闻</a></li>
+        <li><a href="/articles/campaign-logs/index.html" style="font-size: 0.8em; opacity: 0.7;">⬅ 返回炉火轶闻</a></li>
     </ul>
 </nav>
 
 <div class="page-container">
     <header id="chap1">
-        <h1 class="chapter-title">第一章：艾尔托瑞尔的余烬</h1>
-        <span style="text-align:center; display:block; font-style:italic; color:var(--accent-brown); margin-bottom:40px;">"当圣光坠入地狱，唯有凡人的勇气在灰烬中闪烁。"</span>
+        <h1 class="chapter-title">{{ chapterTitle }}</h1>
+        <span style="text-align:center; display:block; font-style:italic; color:var(--accent-brown); margin-bottom:40px;">"{{ subtitle }}"</span>
     </header>
 
-    <div class="narrative-wrapper">
-        <article class="main-text">
-            <h3 id="chap2" style="font-family:'ZCOOLXiaoWei'; color:var(--accent-brown);">【寻找铁匠威鲁姆】</h3>
-            <p>艾尔托瑞尔陷落了。曾经的圣光之城如今只剩下破碎的轮廓，悬浮在血色的天际线下。雅希拉、贝耶特、杜瓦尔、米娅莉与科尔在烟尘中喘息。他们被小女孩雅拉和老牧羊人高林救起。雅拉告诉众人，铁匠威鲁姆为了寻找武器穿过了危险的断壁残垣，至今未归。</p>
-
-            <p>途中，他们遇到了一个惊慌失措的厨子。在指引他前往难民营后，众人来到了铁匠铺。威鲁姆的怒吼声隔着门板都能听到，原来一个装了车轮腿的食人魔抢走了所有的武器。更糟糕的是，这群强盗似乎与蛇人有勾结，正在进行人口贩卖的邪恶生意。</p>
-            
-            <h3 id="chap3" style="font-family:'ZCOOLXiaoWei'; color:var(--accent-brown);">【盲目的仁慈】</h3>
-            <p>归途中，伏击如期而至。讽刺的是，强盗中竟有雅希拉之前救助过的人。战斗结束后，血腥味尚未散去，游侠杜瓦尔冷冷地警告道：“善良是好事，但在这里，盲目的善良会害死我们所有人。”</p>
-        </article>
-
-        <aside class="sidebar">
-            <div class="sidebar-item">
-                <strong>【地理志：艾尔托瑞尔】</strong>
-                <p>原本是艾尔托加德的首府，如今被拉入了阿弗纳斯的第一层。</p>
-            </div>
-            <div class="sidebar-item">
-                <strong>【势力：散塔林会？】</strong>
-                <p>蛇人的勾结，隐约指向了倒卖人口的黑暗组织。</p>
-            </div>
-        </aside>
-    </div>
+    {{ content | safe }}
 
     <section class="status-card">
-        <div class="status-item"><label>Current Level</label><span>LV 3</span></div>
-        <div class="status-item"><label>Party Gold</label><span>142 GP</span></div>
-        <div class="status-item"><label>Next Stop</label><span>博德之门</span></div>
+        <div class="status-item"><label>Current Level</label><span>{{ level }}</span></div>
+        <div class="status-item"><label>Party Gold</label><span>{{ gold }}</span></div>
+        <div class="status-item"><label>Next Stop</label><span>{{ nextStop }}</span></div>
     </section>
-
-    <h2 class="chapter-title" id="chap-final">第二章：月光小鹿的浓烟</h2>
-    <p class="main-text">
-        夜晚的“月光小鹿”旅店并没能带来安宁。浓烟从马厩升起，僵尸的低吼在门口起伏。瓦沙老板娘的呼救声刺破了寂静...在解决掉那些受污秽气息驱动的死者后，雅希拉明白，这支疲惫的小队必须护送难民离开，向着传闻中的博德之门进发。
-    </p>
 </div>
 
 <div class="character-bar">
