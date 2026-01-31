@@ -5,6 +5,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/lang-switch.css");
   eleventyConfig.addPassthroughCopy("src/lang-switch.js");
   eleventyConfig.addPassthroughCopy("src/adventure-map.js");
+  eleventyConfig.addPassthroughCopy("src/.nojekyll");
+
 
   // Passthrough copy for article specific assets if any (though currently they seem to use root images/fonts)
   // We'll keep the structure simple.
