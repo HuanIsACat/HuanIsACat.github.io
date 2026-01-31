@@ -45,7 +45,7 @@ const adventureData = [
             en: 'Memories from other timelines' 
         },
         links: [
-            { url: 'dream-journals.html', zh: '✦ 入梦', en: '✦ Sleep' }
+            { url: 'articles/dreams/index.html', zh: '✦ 入梦', en: '✦ Sleep' }
         ]
     },
     {
@@ -58,7 +58,7 @@ const adventureData = [
             en: 'Fragments from the journey in the real world.' 
         },
         links: [
-            { url: 'real-life-journals.html', zh: '✦ 翻阅', en: '✦ Read' }
+            { url: 'articles/journals/index.html', zh: '✦ 翻阅', en: '✦ Read' }
         ]
     },
     {
@@ -71,7 +71,7 @@ const adventureData = [
             en: 'Observational notes on the familiar called Jiong Jiong.' 
         },
         links: [
-            { url: 'jiong-journals.html', zh: '✦ 投喂', en: '✦ Feed' }
+            { url: 'articles/cats/index.html', zh: '✦ 投喂', en: '✦ Feed' }
         ]
     },
     {
@@ -84,7 +84,7 @@ const adventureData = [
             en: 'Tales told by an elder at the hearthside about epic campaigns and legends.' 
         },
         links: [
-            { url: 'campaign-logs.html', zh: '✦ 坐下聆听', en: '✦ Sit and Listen' }
+            { url: 'articles/campaign-logs/index.html', zh: '✦ 坐下聆听', en: '✦ Sit and Listen' }
         ]
     }
 ];
