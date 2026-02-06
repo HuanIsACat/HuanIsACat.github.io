@@ -2,9 +2,9 @@
 layout: layouts/dream.njk
 title: 先知
 date: 2025-01-05
-emotion: 旁观
+emotion: 戏剧性
 id: DV-2025-0105
-tags: ["少年漫画", "黑帮", "逻辑流畅", "待续？"]
+tags: ["少年漫画", "黑帮", "第三视角"]
 permalink: articles/dreams/the-seer.html
 ---
 
@@ -224,5 +224,5 @@ permalink: articles/dreams/the-seer.html
 现在众人的目光都聚拿在了那家人的厨房上。
  
     <div class="reflection">
-      编后：这个梦真的到这里就结束了，我也不知道后续发生了什么。
+      醒后记：这个梦真的到这里就结束了，我也不知道后续发生了什么。
     </div>
