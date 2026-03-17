@@ -2,6 +2,7 @@
 layout: layouts/cat.njk
 title: 我的小猫会哄我睡觉
 date: 2025-12-16
+tags: cats
 permalink: articles/cats/sleep.html
 ---
 

@@ -2,6 +2,7 @@
 layout: layouts/cat.njk
 title: 无法识别你
 date: 2025-08-13
+tags: cats
 permalink: articles/cats/cannot-recognize-you.html
 ---
 
@@ -11,7 +12,7 @@ Windows睁开朦胧的睡眼：“无法识别你。”
 
 小猫咪（按住Windows的脸）：“你再好好看看。”
 
-![cat-and-laptop1 alt] (/src/images/jiong/cat-and-laptop1.png "小猫尝试解锁Windows")
+![cat-and-laptop1 alt](/images/jiong/cat-and-laptop1.png "小猫尝试解锁Windows")
 
 Windows：“无法识别你。”
 

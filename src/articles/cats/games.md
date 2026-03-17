@@ -2,6 +2,7 @@
 layout: layouts/cat.njk
 title: 当你在跟小猫玩游戏的时候，小猫也在跟你玩游戏
 date: 2026-01-08
+tags: cats
 permalink: articles/cats/games.html
 ---
 
@@ -11,7 +12,7 @@ permalink: articles/cats/games.html
 
 之前看到给猫咪自制玩具的帖子，刚好材料家里都有，我就给小猫的寻宝游戏增加了一个关卡——鸡蛋盒。首先把零食扔进装鸡蛋的纸盒里，然后再放进玩具小球。小猫需要先嗅闻，找出哪个格子里有零食，然后还要把小球给扒拉开，才能动手掏零食。
 
-![gamebox alt] (/src/images/jiong/gamebox.png "鸡蛋盒")
+![gamebox alt](/images/jiong/gamebox.png "鸡蛋盒")
 
 玩了一段时间以后，我发现盒子里的小球数量在不断减少。哪怕我把周围能看见的小球都捡回去了也还是少了将近一半。我想可能被玩到我看不见的地方了，但我懒得找了。小球也很便宜，再补充就是。
 

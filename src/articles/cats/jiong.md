@@ -2,6 +2,7 @@
 layout: layouts/cat.njk
 title: 囧囧还是特别的小猫吗？
 date: 2021-08-03
+tags: cats
 permalink: articles/cats/jiong.html
 ---
 囧囧是一只普通但又不太普通的小白猫，她的特别之处在于额头有一对八字眉一样的花纹，妈妈也因为这对八字眉给她取名囧囧。
@@ -14,4 +15,4 @@ permalink: articles/cats/jiong.html
 
 囧囧好像有些明白了，她笑了。所以无论有没有八字眉，自己永远都会是世界上最特别的那只小猫咪，嘿嘿。
 
-![jiong alt] (/src/images/jiong/jiong.png "妈妈")
+![jiong alt](/images/jiong/jiong.png "妈妈")

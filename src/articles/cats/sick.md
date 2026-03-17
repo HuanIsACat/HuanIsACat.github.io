@@ -2,6 +2,7 @@
 layout: layouts/cat.njk
 title: 绝世好猫囧囧
 date: 2025-05-30
+tags: cats
 permalink: articles/cats/sick.html
 ---
 今早半梦半醒间听到囧的哭嚎，然后就是熟悉的呕吐声。我猜她又吐毛球了，心里没怎么在意，转头睡了回去，打算醒来以后再去清理。
@@ -16,4 +17,4 @@ permalink: articles/cats/sick.html
 
 囧：妈没给饭吃，一定自有她的理由，猫耐心等饭。
 
-![sleepge alt] (/src/images/jiong/sleepge.png "Sleepge")
+![sleepge alt](/images/jiong/sleepge.png "Sleepge")
